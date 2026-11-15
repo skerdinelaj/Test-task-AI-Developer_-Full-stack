@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import pytest
 
+from eu261_claim_agent.core.schemas import ClaimStatus, LetterDraft, LLMTask, ReviewState
 from eu261_claim_agent.llm.base import LLMOutputInvalid, LLMRefusal, LLMUnavailable
 from eu261_claim_agent.llm.fake import FakeLLM
-from eu261_claim_agent.schemas import ClaimStatus, LetterDraft, LLMTask, ReviewState
 from tests.conftest import AgentFactory, load_sample
 from tests.helpers import ScriptedLLM, call_tools, finish
 

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from eu261_claim_agent.schemas import Severity
+from eu261_claim_agent.core.schemas import Severity
 from tests.conftest import AgentFactory, load_expected, load_sample, sample_names
 
 

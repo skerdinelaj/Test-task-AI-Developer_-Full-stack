@@ -19,10 +19,10 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
+from eu261_claim_agent.agent.prompts import PROMPT_VERSION
 from eu261_claim_agent.config import PROJECT_ROOT, LLMProvider, Settings
-from eu261_claim_agent.observability import configure_logging
-from eu261_claim_agent.prompts import PROMPT_VERSION
-from eu261_claim_agent.schemas import ClaimRequest
+from eu261_claim_agent.core.schemas import ClaimRequest
+from eu261_claim_agent.infra.observability import configure_logging
 from eu261_claim_agent.service import ClaimAgent
 
 EVAL_DIR = PROJECT_ROOT / "evals"

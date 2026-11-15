@@ -7,7 +7,7 @@ from typing import Any, Protocol
 
 from pydantic import BaseModel
 
-from eu261_claim_agent.schemas import LLMTask, Usage
+from eu261_claim_agent.core.schemas import LLMTask, Usage
 from eu261_claim_agent.tools import ToolSpec
 
 

@@ -270,3 +270,31 @@ class ClaimResult(BaseModel):
     usage: Usage
     provider: str
     created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
+
+# --------------------------------------------------------------------------- rule thresholds
+
+
+class DistanceBands(BaseModel):
+    short_max: int
+    medium_max: int
+
+
+class Amounts(BaseModel):
+    short: int
+    medium: int
+    long: int
+
+
+class RulesConfig(BaseModel):
+    eu261_countries: frozenset[str]
+    delay_threshold_minutes: int
+    long_haul_reduction_max_delay_minutes: int
+    long_haul_reduction_factor: float
+    cancellation_full_notice_days: int
+    cancellation_partial_notice_days: int
+    distance_bands_km: DistanceBands
+    amounts_eur: Amounts
+    extraordinary_reason_codes: frozenset[str]
+    not_extraordinary_reason_codes: frozenset[str]
+    reported_vs_record_tolerance_minutes: int

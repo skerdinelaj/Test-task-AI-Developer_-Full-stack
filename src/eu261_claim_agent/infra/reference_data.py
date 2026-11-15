@@ -10,35 +10,10 @@ import json
 from datetime import date
 from pathlib import Path
 
-from pydantic import BaseModel, TypeAdapter
+from pydantic import TypeAdapter
 
-from eu261_claim_agent.normalize import normalize_flight_number
-from eu261_claim_agent.schemas import Airline, Airport, FlightRecord
-
-
-class DistanceBands(BaseModel):
-    short_max: int
-    medium_max: int
-
-
-class Amounts(BaseModel):
-    short: int
-    medium: int
-    long: int
-
-
-class RulesConfig(BaseModel):
-    eu261_countries: frozenset[str]
-    delay_threshold_minutes: int
-    long_haul_reduction_max_delay_minutes: int
-    long_haul_reduction_factor: float
-    cancellation_full_notice_days: int
-    cancellation_partial_notice_days: int
-    distance_bands_km: DistanceBands
-    amounts_eur: Amounts
-    extraordinary_reason_codes: frozenset[str]
-    not_extraordinary_reason_codes: frozenset[str]
-    reported_vs_record_tolerance_minutes: int
+from eu261_claim_agent.core.normalize import normalize_flight_number
+from eu261_claim_agent.core.schemas import Airline, Airport, FlightRecord, RulesConfig
 
 
 class ReferenceData:

@@ -9,11 +9,11 @@ from typing import Any
 import pytest
 
 from eu261_claim_agent.config import PROJECT_ROOT, LLMProvider, Settings
+from eu261_claim_agent.core.schemas import ClaimRequest
+from eu261_claim_agent.infra.reference_data import ReferenceData
+from eu261_claim_agent.infra.search import RegulationIndex
 from eu261_claim_agent.llm.base import LLMClient
 from eu261_claim_agent.llm.fake import FakeLLM
-from eu261_claim_agent.reference_data import ReferenceData
-from eu261_claim_agent.schemas import ClaimRequest
-from eu261_claim_agent.search import RegulationIndex
 from eu261_claim_agent.service import ClaimAgent
 from eu261_claim_agent.tools import ToolRegistry, build_tools
 

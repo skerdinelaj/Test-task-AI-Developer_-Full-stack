@@ -16,14 +16,11 @@ from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
 from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.types import Command
 
-from eu261_claim_agent import schemas
+from eu261_claim_agent.agent.graph import build_graph
+from eu261_claim_agent.agent.state import AgentDeps, AgentState
 from eu261_claim_agent.config import Settings, get_settings
-from eu261_claim_agent.graph import AgentDeps, AgentState, build_graph
-from eu261_claim_agent.guards import new_boundary
-from eu261_claim_agent.llm import LLMClient, build_llm
-from eu261_claim_agent.observability import Tracer
-from eu261_claim_agent.reference_data import ReferenceData
-from eu261_claim_agent.schemas import (
+from eu261_claim_agent.core import schemas
+from eu261_claim_agent.core.schemas import (
     ClaimRequest,
     ClaimResult,
     ClaimStatus,
@@ -33,7 +30,11 @@ from eu261_claim_agent.schemas import (
     Severity,
     Usage,
 )
-from eu261_claim_agent.search import RegulationIndex
+from eu261_claim_agent.guardrails.guards import new_boundary
+from eu261_claim_agent.infra.observability import Tracer
+from eu261_claim_agent.infra.reference_data import ReferenceData
+from eu261_claim_agent.infra.search import RegulationIndex
+from eu261_claim_agent.llm import LLMClient, build_llm
 from eu261_claim_agent.tools import build_tools
 
 
@@ -48,7 +49,7 @@ class ReviewNotPendingError(RuntimeError):
 def _serializer() -> JsonPlusSerializer:
     # Only our own schema types may be revived from checkpoints (safe deserialisation).
     allowed = [
-        ("eu261_claim_agent.schemas", name)
+        ("eu261_claim_agent.core.schemas", name)
         for name in dir(schemas)
         if isinstance(getattr(schemas, name), type)
     ]
@@ -143,7 +144,7 @@ class ClaimAgent(AbstractContextManager["ClaimAgent"]):
         status = state.get("status", ClaimStatus.NEEDS_REVIEW)
         summary = state.get("summary")
         if summary is None:
-            from eu261_claim_agent.summary import build_summary
+            from eu261_claim_agent.core.summary import build_summary
 
             summary = build_summary(
                 status,

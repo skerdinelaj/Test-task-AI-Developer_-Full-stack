@@ -6,7 +6,7 @@ import re
 from dataclasses import dataclass, field
 from datetime import date, timedelta
 
-from eu261_claim_agent.schemas import ExtractedFacts, NormalizedFacts, RiskFlag, Severity
+from eu261_claim_agent.core.schemas import ExtractedFacts, NormalizedFacts, RiskFlag, Severity
 
 FLIGHT_NUMBER_RE = re.compile(r"^([A-Z][A-Z0-9]|[0-9][A-Z])(\d{1,4})$")
 IATA_RE = re.compile(r"^[A-Z]{3}$")

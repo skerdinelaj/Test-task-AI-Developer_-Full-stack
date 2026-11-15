@@ -12,7 +12,7 @@ from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 
-from eu261_claim_agent.schemas import RegulationSnippet
+from eu261_claim_agent.core.schemas import RegulationSnippet
 
 TOKEN_RE = re.compile(r"[a-z0-9]+")
 STOPWORDS = frozenset(

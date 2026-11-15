@@ -11,9 +11,9 @@ import pytest
 from pydantic import BaseModel
 
 from eu261_claim_agent.config import Settings
+from eu261_claim_agent.core.schemas import LLMTask
 from eu261_claim_agent.llm.anthropic_client import AnthropicLLM
 from eu261_claim_agent.llm.base import LLMOutputInvalid, LLMRefusal, LLMUnavailable
-from eu261_claim_agent.schemas import LLMTask
 from eu261_claim_agent.tools import ToolRegistry
 
 

@@ -8,7 +8,7 @@ from __future__ import annotations
 import pytest
 
 from eu261_claim_agent.config import LLMProvider, Settings
-from eu261_claim_agent.schemas import ClaimStatus
+from eu261_claim_agent.core.schemas import ClaimStatus
 from tests.conftest import AgentFactory, load_expected, load_sample
 
 HAS_KEY = Settings().anthropic_api_key is not None

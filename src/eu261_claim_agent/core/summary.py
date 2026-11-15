@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from eu261_claim_agent.schemas import (
+from eu261_claim_agent.core.schemas import (
     ClaimStatus,
     EligibilityDecision,
     NormalizedFacts,

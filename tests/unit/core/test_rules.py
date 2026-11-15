@@ -6,16 +6,16 @@ from datetime import date, datetime, timedelta
 
 import pytest
 
-from eu261_claim_agent.geo import great_circle_km
-from eu261_claim_agent.reference_data import ReferenceData
-from eu261_claim_agent.rules import compensation_band, evaluate_claim
-from eu261_claim_agent.schemas import (
+from eu261_claim_agent.core.distance import great_circle_km
+from eu261_claim_agent.core.rules import compensation_band, evaluate_claim
+from eu261_claim_agent.core.schemas import (
     ClaimStatus,
     DisruptionType,
     Evidence,
     FlightRecord,
     NormalizedFacts,
 )
+from eu261_claim_agent.infra.reference_data import ReferenceData
 
 D = date(2026, 10, 1)
 

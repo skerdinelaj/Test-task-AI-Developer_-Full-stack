@@ -15,11 +15,11 @@ from typing import Any
 
 from pydantic import BaseModel
 
-from eu261_claim_agent.guards import heuristic_screen
-from eu261_claim_agent.letters import CaseFile, render_template_letter
+from eu261_claim_agent.core.letters import CaseFile, render_template_letter
+from eu261_claim_agent.core.schemas import DisruptionType, ExtractedFacts, LLMTask, Usage
+from eu261_claim_agent.guardrails.guards import heuristic_screen
+from eu261_claim_agent.infra.reference_data import ReferenceData
 from eu261_claim_agent.llm.base import StructuredResult, ToolCall, ToolTurn
-from eu261_claim_agent.reference_data import ReferenceData
-from eu261_claim_agent.schemas import DisruptionType, ExtractedFacts, LLMTask, Usage
 from eu261_claim_agent.tools import ToolSpec
 
 UNTRUSTED_RE = re.compile(r"<(untrusted_[a-z]+_[0-9a-f]+)>\n(.*?)\n</\1>", re.DOTALL)

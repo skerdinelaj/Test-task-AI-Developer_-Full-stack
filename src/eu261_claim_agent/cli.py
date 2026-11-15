@@ -13,8 +13,8 @@ from rich.panel import Panel
 from rich.table import Table
 
 from eu261_claim_agent.config import PROJECT_ROOT, LLMProvider, Settings
-from eu261_claim_agent.observability import configure_logging
-from eu261_claim_agent.schemas import ClaimRequest, ClaimResult, ReviewOutcome
+from eu261_claim_agent.core.schemas import ClaimRequest, ClaimResult, ReviewOutcome
+from eu261_claim_agent.infra.observability import configure_logging
 from eu261_claim_agent.service import ClaimAgent
 
 app = typer.Typer(add_completion=False, help="EU261 claim intake agent.")

@@ -7,7 +7,7 @@ EU261 eligibility is mostly mechanical (scope, delay ≥ 3 h, notice windows, di
 
 ## Decision
 - The LLM extracts facts, plans which evidence to fetch, and drafts the letter.
-- A pure-Python rules engine (`rules.py`) makes the decision from the **flight record**, never from the customer's claim.
+- A pure-Python rules engine (`core/rules.py`) makes the decision from the **flight record**, never from the customer's claim.
 - Thresholds live in `data/rules_config.json`, because an EU261 reform has been under negotiation.
 - The letter is checked by code (`letters.validate_letter`): the amount must equal the rules engine's amount, the flight number must appear, no links or placeholders. Failed drafts are retried with feedback, then replaced by a safe template.
 

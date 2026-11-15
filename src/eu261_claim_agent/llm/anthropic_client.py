@@ -18,6 +18,7 @@ import anthropic
 from pydantic import BaseModel, ValidationError
 
 from eu261_claim_agent.config import Settings
+from eu261_claim_agent.core.schemas import LLMTask, Usage
 from eu261_claim_agent.llm.base import (
     LLMOutputInvalid,
     LLMRefusal,
@@ -26,7 +27,6 @@ from eu261_claim_agent.llm.base import (
     ToolCall,
     ToolTurn,
 )
-from eu261_claim_agent.schemas import LLMTask, Usage
 from eu261_claim_agent.tools import ToolSpec
 
 

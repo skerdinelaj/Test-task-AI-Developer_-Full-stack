@@ -6,10 +6,10 @@ from hypothesis import given, settings
 from hypothesis import strategies as st
 
 from eu261_claim_agent.config import PROJECT_ROOT
-from eu261_claim_agent.reference_data import ReferenceData
-from eu261_claim_agent.rules import evaluate_claim
-from eu261_claim_agent.schemas import ClaimStatus, DisruptionType
-from tests.unit.test_rules import evidence_for, facts
+from eu261_claim_agent.core.rules import evaluate_claim
+from eu261_claim_agent.core.schemas import ClaimStatus, DisruptionType
+from eu261_claim_agent.infra.reference_data import ReferenceData
+from tests.unit.core.test_rules import evidence_for, facts
 
 REF = ReferenceData(PROJECT_ROOT / "data")
 AIRPORTS = sorted(REF.airports)

@@ -6,9 +6,9 @@ from typing import Any
 
 from pydantic import BaseModel
 
+from eu261_claim_agent.core.schemas import LLMTask, Usage
 from eu261_claim_agent.llm.base import StructuredResult, ToolCall, ToolTurn
 from eu261_claim_agent.llm.fake import FakeLLM
-from eu261_claim_agent.schemas import LLMTask, Usage
 from eu261_claim_agent.tools import ToolSpec
 
 Scripted = BaseModel | Exception

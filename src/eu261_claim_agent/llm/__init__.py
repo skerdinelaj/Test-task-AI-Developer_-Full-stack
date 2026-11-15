@@ -1,4 +1,5 @@
 from eu261_claim_agent.config import LLMProvider, Settings
+from eu261_claim_agent.infra.reference_data import ReferenceData
 from eu261_claim_agent.llm.base import (
     LLMClient,
     LLMError,
@@ -9,7 +10,6 @@ from eu261_claim_agent.llm.base import (
     ToolCall,
     ToolTurn,
 )
-from eu261_claim_agent.reference_data import ReferenceData
 
 __all__ = [
     "LLMClient",

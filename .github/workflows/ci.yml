@@ -21,6 +21,8 @@ jobs:
           uv run ruff format --check .
       - name: Type check (strict)
         run: uv run mypy
+      - name: Import layers
+        run: uv run lint-imports
       - name: Tests (offline)
         run: uv run pytest --cov --cov-report=term-missing --cov-fail-under=85
       - name: Offline eval gate

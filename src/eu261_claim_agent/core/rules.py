@@ -10,14 +10,14 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Literal
 
-from eu261_claim_agent.reference_data import RulesConfig
-from eu261_claim_agent.schemas import (
+from eu261_claim_agent.core.schemas import (
     ClaimStatus,
     DisruptionType,
     EligibilityDecision,
     Evidence,
     NormalizedFacts,
     RiskFlag,
+    RulesConfig,
     Severity,
 )
 

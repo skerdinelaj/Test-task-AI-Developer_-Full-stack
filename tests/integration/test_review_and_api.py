@@ -10,7 +10,7 @@ from pydantic import SecretStr
 
 from eu261_claim_agent.api import create_app
 from eu261_claim_agent.config import Settings
-from eu261_claim_agent.schemas import ReviewOutcome, ReviewState
+from eu261_claim_agent.core.schemas import ReviewOutcome, ReviewState
 from eu261_claim_agent.service import ClaimAgent, ReviewNotPendingError
 from tests.conftest import AgentFactory, load_sample
 

@@ -6,7 +6,12 @@ import re
 
 from pydantic import BaseModel
 
-from eu261_claim_agent.schemas import EligibilityDecision, Evidence, LetterDraft, NormalizedFacts
+from eu261_claim_agent.core.schemas import (
+    EligibilityDecision,
+    Evidence,
+    LetterDraft,
+    NormalizedFacts,
+)
 
 AMOUNT_RE = re.compile(
     r"(?:€|\bEUR\b)\s?(\d{1,3}(?:[.,\s]\d{3})*|\d+)(?:[.,]\d{2})?"

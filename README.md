@@ -5,7 +5,7 @@ An AI agent that takes a passenger's "my flight was delayed" message and turns i
 Built with **Python 3.12 · LangGraph · Claude (Sonnet 5.5 + Haiku 5.5) · Pydantic · FastAPI · React**.
 
 [![CI](https://img.shields.io/badge/CI-ruff%20%C2%B7%20mypy%20--strict%20%C2%B7%20pytest-blue)](#6-how-to-test--verify)
-![tests](https://img.shields.io/badge/tests-137%20passing-brightgreen) ![coverage](https://img.shields.io/badge/coverage-91%25-brightgreen) ![types](https://img.shields.io/badge/mypy-strict-blue)
+![tests](https://img.shields.io/badge/tests-143%20passing-brightgreen) ![coverage](https://img.shields.io/badge/coverage-96%25-brightgreen) ![types](https://img.shields.io/badge/mypy-strict-blue)
 
 ![Review UI showing a claim with a prompt injection that was detected and ignored](docs/images/ui-injection-case.png)
 
@@ -114,17 +114,18 @@ flowchart TD
 
 | Component | File | Role |
 |---|---|---|
-| Graph / orchestration | [`graph.py`](src/eu261_claim_agent/graph.py) | LangGraph `StateGraph`, typed `AgentState`, routing, retries, review interrupt |
+| Graph / orchestration | [`agent/graph.py`](src/eu261_claim_agent/agent/graph.py), [`agent/nodes/`](src/eu261_claim_agent/agent/nodes) | LangGraph `StateGraph` wiring and routing; one file per step |
+| Agent state and helpers | [`agent/state.py`](src/eu261_claim_agent/agent/state.py), [`agent/runtime.py`](src/eu261_claim_agent/agent/runtime.py), [`agent/evidence.py`](src/eu261_claim_agent/agent/evidence.py) | Typed `AgentState`, step tracing, token budget, tool execution and evidence checks |
 | LLM interface | [`llm/base.py`](src/eu261_claim_agent/llm/base.py) | Provider-agnostic `LLMClient` protocol + typed errors |
 | Claude adapter | [`llm/anthropic_client.py`](src/eu261_claim_agent/llm/anthropic_client.py) | Structured outputs, strict tools, per-task model/effort, usage + cost |
 | Offline model | [`llm/fake.py`](src/eu261_claim_agent/llm/fake.py) | Deterministic regex stand-in for CI, tests and `--mock` |
-| Tools | [`tools.py`](src/eu261_claim_agent/tools.py) | `lookup_flight`, `get_airline`, `calculate_distance`, `search_regulation` |
-| Rules engine | [`rules.py`](src/eu261_claim_agent/rules.py) | The only place money and eligibility are decided |
-| Guardrails | [`guards.py`](src/eu261_claim_agent/guards.py), [`normalize.py`](src/eu261_claim_agent/normalize.py), [`letters.py`](src/eu261_claim_agent/letters.py) | Input screening, spotlighting, fact validation, letter validation |
-| Knowledge base | [`search.py`](src/eu261_claim_agent/search.py), [`data/regulation`](data/regulation) | BM25 search over plain-language EU261 notes + firm policy |
-| Observability | [`observability.py`](src/eu261_claim_agent/observability.py) | structlog JSON logs + per-run JSONL traces with PII redaction |
+| Tools | [`tools/`](src/eu261_claim_agent/tools) | `lookup_flight`, `get_airline`, `calculate_distance`, `search_regulation` (one file each) + [`registry.py`](src/eu261_claim_agent/tools/registry.py) |
+| Rules engine | [`core/rules.py`](src/eu261_claim_agent/core/rules.py) | The only place money and eligibility are decided |
+| Guardrails | [`guardrails/guards.py`](src/eu261_claim_agent/guardrails/guards.py), [`core/normalize.py`](src/eu261_claim_agent/core/normalize.py), [`core/letters.py`](src/eu261_claim_agent/core/letters.py) | Input screening, spotlighting, fact validation, letter validation |
+| Knowledge base | [`infra/search.py`](src/eu261_claim_agent/infra/search.py), [`data/regulation`](data/regulation) | BM25 search over plain-language EU261 notes + firm policy |
+| Observability | [`infra/observability.py`](src/eu261_claim_agent/infra/observability.py) | structlog JSON logs + per-run JSONL traces with PII redaction |
 | Service / API / CLI | [`service.py`](src/eu261_claim_agent/service.py), [`api.py`](src/eu261_claim_agent/api.py), [`cli.py`](src/eu261_claim_agent/cli.py) | One entry point used by every interface |
-| Prompts | [`prompts/`](src/eu261_claim_agent/prompts) | Versioned `.md` files (version is logged with every LLM call) |
+| Prompts | [`agent/prompts/`](src/eu261_claim_agent/agent/prompts) | Versioned `.md` files (version is logged with every LLM call) |
 | Review UI | [`ui/`](ui) | React + TypeScript page to run claims, read traces, approve or reject |
 
 ### Key design decisions
@@ -145,6 +146,17 @@ git clone <this-repo> && cd eu261-claim-agent
 make setup                 # uv sync + npm ci + pre-commit hooks
 cp .env.example .env       # add ANTHROPIC_API_KEY to use Claude
 ```
+
+**On Windows:** use [WSL](https://learn.microsoft.com/windows/wsl/install), or run the commands without `make`:
+
+| `make` target | Command without make |
+|---|---|
+| `make setup` | `uv sync` and `cd ui && npm ci` |
+| `make test` | `uv run pytest --cov` |
+| `make lint` | `uv run ruff check . && uv run mypy` |
+| `make demo` | `uv run claim-agent demo --mock` |
+| `make eval PROVIDER=anthropic` | `uv run python -m evals.run_evals --provider anthropic` |
+| `make serve MOCK=1` | `cd ui && npm run build`, then `uv run claim-agent serve --mock` |
 
 **Try it in 30 seconds (no API key):**
 ```bash
@@ -179,8 +191,8 @@ Set `CLAIM_AGENT_API_KEY` to require an `X-API-Key` header on `/claims` endpoint
 ## 6. How to test / verify
 
 ```bash
-make lint        # ruff + ruff format --check + mypy --strict
-make test        # 137 tests, offline, ~8 s, with coverage
+make lint        # ruff + ruff format --check + mypy --strict + import layers
+make test        # 143 tests, offline, ~60 s, with coverage
 make test-live   # smoke tests against real Claude (needs ANTHROPIC_API_KEY)
 make eval PROVIDER=anthropic   # quality metrics on 28 labelled cases
 ```
@@ -188,8 +200,8 @@ make eval PROVIDER=anthropic   # quality metrics on 28 labelled cases
 | Layer | What it proves | Where |
 |---|---|---|
 | **Unit** | Rules at every boundary (179/180 min, 239/240 min, 1500 km, 7/13/14 days), scope for EU/EEA/CH/UK, normalisation, guards, tool validation, letter checks, PII redaction | [`tests/unit`](tests/unit) |
-| **Property-based** (Hypothesis) | For *any* route/airline/delay: amount ∈ {0, 250, 300, 400, 600}; a longer delay never pays less; the customer's reported delay never changes the decision | [`test_rules_properties.py`](tests/unit/test_rules_properties.py) |
-| **Claude adapter** | Correct model per task, no forced tool use, strict tools, thinking blocks preserved, refusal/outage/invalid output mapped to typed errors | [`test_anthropic_client.py`](tests/unit/test_anthropic_client.py) |
+| **Property-based** (Hypothesis) | For *any* route/airline/delay: amount ∈ {0, 250, 300, 400, 600}; a longer delay never pays less; the customer's reported delay never changes the decision | [`test_rules_properties.py`](tests/unit/core/test_rules_properties.py) |
+| **Claude adapter** | Correct model per task, no forced tool use, strict tools, thinking blocks preserved, refusal/outage/invalid output mapped to typed errors | [`test_anthropic_client.py`](tests/unit/llm/test_anthropic_client.py) |
 | **Integration** | All 15 samples match their expected outputs through the full graph | [`test_samples.py`](tests/integration/test_samples.py) |
 | **Resilience** | Planner outage, lazy planner, off-target lookups, hallucinated tools, runaway loops, bad letters, token budget, crashes | [`test_resilience.py`](tests/integration/test_resilience.py) |
 | **E2E** | HTTP API: submit → pending → approve → 409 on second review; 401/404/422; a paused claim survives a restart | [`test_review_and_api.py`](tests/integration/test_review_and_api.py) |
@@ -338,13 +350,29 @@ How to read this: the regex baseline fails on lowercase flight numbers, Albanian
 ### Project structure
 
 ```
-src/eu261_claim_agent/   graph, rules, tools, guards, llm/, prompts/, api, cli, service
+src/eu261_claim_agent/
+  api.py, cli.py         HTTP API and command line (independent of each other)
+  service.py             ClaimAgent: the one entry point every interface uses
+  config.py              settings (importable from any layer)
+  agent/                 LangGraph workflow: state, runtime helpers, graph wiring
+    nodes/               one file per graph step (validate_input … finalize)
+    prompts/             versioned .md prompts
+  llm/                   LLMClient protocol, Claude adapter, offline fake
+  tools/                 registry + one file per tool
+  guardrails/            input screening and spotlighting
+  infra/                 reference data, regulation search, logs and traces
+  core/                  schemas, rules, normalisation, letters, summary, distance
 data/                    airports, airlines, mock flights, rule thresholds, regulation notes
 samples/                 inputs/ expected/ outputs/ for 15 business cases
-tests/                   unit/ (incl. property-based) and integration/ (graph, resilience, API, CLI, live)
+tests/                   unit/ (mirrors core, guardrails, tools, infra, llm; incl. property-based)
+                         and integration/ (graph, resilience, API, CLI, live)
 evals/                   labelled dataset, harness, results/
 ui/                      React + TypeScript review UI
 docs/                    ADRs, architecture graph, screenshots
 ```
+
+Imports only point downwards: `api | cli → service → agent → llm → tools → guardrails | infra → core`.
+This rule is enforced by [import-linter](https://import-linter.readthedocs.io/) (the `layers` contract in
+`pyproject.toml`, run by `make lint` and in CI), so for example `core/` can never import AI, web or file code.
 
 License: MIT.

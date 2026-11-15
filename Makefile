@@ -9,10 +9,11 @@ setup: ## Install Python and UI dependencies
 	cd ui && npm ci
 	uv run pre-commit install || true
 
-lint: ## Ruff lint + format check, mypy --strict
+lint: ## Ruff lint + format check, mypy --strict, import layers
 	uv run ruff check .
 	uv run ruff format --check .
 	uv run mypy
+	uv run lint-imports
 
 test: ## Unit + integration + e2e tests (offline, no API key)
 	uv run pytest --cov --cov-report=term-missing

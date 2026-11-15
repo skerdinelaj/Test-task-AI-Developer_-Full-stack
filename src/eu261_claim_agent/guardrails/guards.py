@@ -15,7 +15,7 @@ import re
 import secrets
 from dataclasses import dataclass
 
-from eu261_claim_agent.schemas import ClaimRequest, GuardVerdict
+from eu261_claim_agent.core.schemas import ClaimRequest, GuardVerdict
 
 INJECTION_PATTERNS: tuple[re.Pattern[str], ...] = tuple(
     re.compile(p, re.IGNORECASE)
