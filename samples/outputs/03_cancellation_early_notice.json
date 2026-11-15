@@ -1,0 +1,143 @@
+{
+  "run_id": "b3d413c4f049",
+  "status": "not_eligible",
+  "review_state": "not_required",
+  "needs_human_review": false,
+  "summary": "Claim for flight IB3170 on 2026-09-20 (MAD→AMS).\nResult: NOT ELIGIBLE.\nWhy: Covered: the flight departed from Madrid, inside the EU261 area. Distance 1,458 km (within the EU): EUR 250 band. Airline reason 'SCHEDULE_CHANGE' does not excuse the airline: a commercial schedule change is within the airline's control. The passenger was told 20 days ahead (14 or more): no compensation.\nNext step: Tell the customer why no compensation is due.",
+  "decision": {
+    "status": "not_eligible",
+    "eligible": false,
+    "amount_eur": 0,
+    "distance_km": 1458.4,
+    "arrival_delay_minutes": null,
+    "reasons": [
+      "Covered: the flight departed from Madrid, inside the EU261 area.",
+      "Distance 1,458 km (within the EU): EUR 250 band.",
+      "Airline reason 'SCHEDULE_CHANGE' does not excuse the airline: a commercial schedule change is within the airline's control.",
+      "The passenger was told 20 days ahead (14 or more): no compensation."
+    ],
+    "rule_ids": [
+      "SCOPE_DEPARTS_EU",
+      "BAND_SHORT",
+      "CANCELLATION_NOTICE_14D_PLUS"
+    ]
+  },
+  "facts": {
+    "passenger_name": null,
+    "flight_number": "IB3170",
+    "flight_date": "2026-09-20",
+    "departure_airport": "MAD",
+    "arrival_airport": "AMS",
+    "disruption_type": "cancellation",
+    "reported_delay_minutes": null,
+    "cancellation_notice_days": 20,
+    "reason_given_by_airline": null
+  },
+  "missing_fields": [],
+  "risk_flags": [],
+  "letter": null,
+  "review": null,
+  "tool_calls": [
+    {
+      "tool": "lookup_flight",
+      "arguments": {
+        "flight_number": "IB3170",
+        "flight_date": "2026-09-20"
+      },
+      "ok": true,
+      "duration_ms": 0.05,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "get_airline",
+      "arguments": {
+        "airline_code": "IB"
+      },
+      "ok": true,
+      "duration_ms": 0.03,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "calculate_distance",
+      "arguments": {
+        "origin_iata": "MAD",
+        "destination_iata": "AMS"
+      },
+      "ok": true,
+      "duration_ms": 0.08,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "search_regulation",
+      "arguments": {
+        "query": "cancellation notice days compensation extraordinary circumstances schedule_change",
+        "top_k": 3
+      },
+      "ok": true,
+      "duration_ms": 0.16,
+      "error": null,
+      "source": "planner"
+    }
+  ],
+  "steps": [
+    {
+      "node": "validate_input",
+      "duration_ms": 0.14
+    },
+    {
+      "node": "screen_input",
+      "duration_ms": 1.74
+    },
+    {
+      "node": "extract_facts",
+      "duration_ms": 1.51
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.82
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 0.42
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.08
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 0.96
+    },
+    {
+      "node": "plan",
+      "duration_ms": 0.98
+    },
+    {
+      "node": "verify_evidence",
+      "duration_ms": 0.3
+    },
+    {
+      "node": "apply_rules",
+      "duration_ms": 0.17
+    },
+    {
+      "node": "review_gate",
+      "duration_ms": 0.06
+    },
+    {
+      "node": "finalize",
+      "duration_ms": 0.12
+    }
+  ],
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "llm_calls": 5,
+    "cost_usd": 0.0
+  },
+  "provider": "fake",
+  "created_at": "2026-11-15T15:11:15.056789Z"
+}

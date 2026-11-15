@@ -1,0 +1,13 @@
+{
+  "status": "needs_review",
+  "amount_eur": 0,
+  "review_state": "pending",
+  "rule_ids_include": [
+    "FLIGHT_NOT_FOUND"
+  ],
+  "risk_flags_include": [
+    "FLIGHT_NOT_VERIFIED"
+  ],
+  "has_letter": false,
+  "missing_fields": []
+}

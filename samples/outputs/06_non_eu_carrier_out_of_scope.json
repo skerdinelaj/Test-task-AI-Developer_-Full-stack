@@ -1,0 +1,138 @@
+{
+  "run_id": "88ff333e797e",
+  "status": "out_of_scope",
+  "review_state": "not_required",
+  "needs_human_review": false,
+  "summary": "Claim for flight TK1873 on 2026-10-05 (IST→FCO).\nResult: OUT OF SCOPE.\nWhy: Not covered by EU261: the flight departed from Istanbul (TR), outside the EU261 area, and Turkish Airlines is not an EU carrier.\nNext step: Tell the customer this case is not covered; no letter is drafted.",
+  "decision": {
+    "status": "out_of_scope",
+    "eligible": false,
+    "amount_eur": 0,
+    "distance_km": 1373.5,
+    "arrival_delay_minutes": null,
+    "reasons": [
+      "Not covered by EU261: the flight departed from Istanbul (TR), outside the EU261 area, and Turkish Airlines is not an EU carrier."
+    ],
+    "rule_ids": [
+      "SCOPE_NOT_COVERED"
+    ]
+  },
+  "facts": {
+    "passenger_name": null,
+    "flight_number": "TK1873",
+    "flight_date": "2026-10-05",
+    "departure_airport": "IST",
+    "arrival_airport": "FCO",
+    "disruption_type": "delay",
+    "reported_delay_minutes": 360,
+    "cancellation_notice_days": null,
+    "reason_given_by_airline": null
+  },
+  "missing_fields": [],
+  "risk_flags": [],
+  "letter": null,
+  "review": null,
+  "tool_calls": [
+    {
+      "tool": "lookup_flight",
+      "arguments": {
+        "flight_number": "TK1873",
+        "flight_date": "2026-10-05"
+      },
+      "ok": true,
+      "duration_ms": 0.04,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "get_airline",
+      "arguments": {
+        "airline_code": "TK"
+      },
+      "ok": true,
+      "duration_ms": 0.02,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "calculate_distance",
+      "arguments": {
+        "origin_iata": "IST",
+        "destination_iata": "FCO"
+      },
+      "ok": true,
+      "duration_ms": 0.06,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "search_regulation",
+      "arguments": {
+        "query": "delay three hours arrival compensation extraordinary circumstances tech",
+        "top_k": 3
+      },
+      "ok": true,
+      "duration_ms": 0.14,
+      "error": null,
+      "source": "planner"
+    }
+  ],
+  "steps": [
+    {
+      "node": "validate_input",
+      "duration_ms": 0.14
+    },
+    {
+      "node": "screen_input",
+      "duration_ms": 0.61
+    },
+    {
+      "node": "extract_facts",
+      "duration_ms": 1.16
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.5
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 0.28
+    },
+    {
+      "node": "plan",
+      "duration_ms": 0.75
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 0.73
+    },
+    {
+      "node": "plan",
+      "duration_ms": 0.96
+    },
+    {
+      "node": "verify_evidence",
+      "duration_ms": 0.21
+    },
+    {
+      "node": "apply_rules",
+      "duration_ms": 0.4
+    },
+    {
+      "node": "review_gate",
+      "duration_ms": 0.35
+    },
+    {
+      "node": "finalize",
+      "duration_ms": 0.2
+    }
+  ],
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "llm_calls": 5,
+    "cost_usd": 0.0
+  },
+  "provider": "fake",
+  "created_at": "2026-11-15T15:11:17.659300Z"
+}

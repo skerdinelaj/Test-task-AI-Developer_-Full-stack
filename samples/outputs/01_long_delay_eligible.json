@@ -1,0 +1,146 @@
+{
+  "run_id": "3aa6920ae05f",
+  "status": "eligible",
+  "review_state": "pending",
+  "needs_human_review": true,
+  "summary": "Claim for flight LH1452 on 2026-10-03 (FRA→LIS).\nResult: ELIGIBLE for EUR 400.\nWhy: Covered: the flight departed from Frankfurt, inside the EU261 area. Distance 1,874 km (within the EU): EUR 400 band. Airline reason 'TECH' does not excuse the airline: technical problems are part of normal airline operations (CJEU C-549/07). The flight arrived 4 h 10 min late (3 h or more).\nStatus: waiting for human review.\nNext step: A claims handler must approve the drafted letter before it is sent.",
+  "decision": {
+    "status": "eligible",
+    "eligible": true,
+    "amount_eur": 400,
+    "distance_km": 1874.1,
+    "arrival_delay_minutes": 250,
+    "reasons": [
+      "Covered: the flight departed from Frankfurt, inside the EU261 area.",
+      "Distance 1,874 km (within the EU): EUR 400 band.",
+      "Airline reason 'TECH' does not excuse the airline: technical problems are part of normal airline operations (CJEU C-549/07).",
+      "The flight arrived 4 h 10 min late (3 h or more)."
+    ],
+    "rule_ids": [
+      "SCOPE_DEPARTS_EU",
+      "BAND_MEDIUM",
+      "DELAY_AT_LEAST_3H"
+    ]
+  },
+  "facts": {
+    "passenger_name": "Anna Rossi",
+    "flight_number": "LH1452",
+    "flight_date": "2026-10-03",
+    "departure_airport": "FRA",
+    "arrival_airport": "LIS",
+    "disruption_type": "delay",
+    "reported_delay_minutes": 240,
+    "cancellation_notice_days": null,
+    "reason_given_by_airline": null
+  },
+  "missing_fields": [],
+  "risk_flags": [],
+  "letter": {
+    "subject": "EU261 compensation claim - flight LH1452 on 2026-10-03",
+    "body": "Dear Lufthansa Customer Relations,\n\nWe act on behalf of Anna Rossi regarding flight LH1452 on 2026-10-03 from Frankfurt (FRA) to Lisbon (LIS), which was delayed, arriving 4 hours and 10 minutes late.\n\nUnder Regulation (EC) No 261/2004, Articles 5, 7 and the case law of the Court of Justice of the EU, the passenger is entitled to compensation of EUR 400 for this long delay. The flight distance is 1,874 km.\n\nBased on the information available to us, no extraordinary circumstances apply.\n\nPlease pay EUR 400 within 14 days of this letter and send your reply to our claims team.\n\nYours faithfully,\nClaims Team"
+  },
+  "review": null,
+  "tool_calls": [
+    {
+      "tool": "lookup_flight",
+      "arguments": {
+        "flight_number": "LH1452",
+        "flight_date": "2026-10-03"
+      },
+      "ok": true,
+      "duration_ms": 0.06,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "get_airline",
+      "arguments": {
+        "airline_code": "LH"
+      },
+      "ok": true,
+      "duration_ms": 0.04,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "calculate_distance",
+      "arguments": {
+        "origin_iata": "FRA",
+        "destination_iata": "LIS"
+      },
+      "ok": true,
+      "duration_ms": 0.1,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "search_regulation",
+      "arguments": {
+        "query": "delay three hours arrival compensation extraordinary circumstances tech",
+        "top_k": 3
+      },
+      "ok": true,
+      "duration_ms": 0.18,
+      "error": null,
+      "source": "planner"
+    }
+  ],
+  "steps": [
+    {
+      "node": "validate_input",
+      "duration_ms": 0.49
+    },
+    {
+      "node": "screen_input",
+      "duration_ms": 0.79
+    },
+    {
+      "node": "extract_facts",
+      "duration_ms": 1.14
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.51
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 0.62
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.14
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 1.11
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.48
+    },
+    {
+      "node": "verify_evidence",
+      "duration_ms": 0.27
+    },
+    {
+      "node": "apply_rules",
+      "duration_ms": 0.33
+    },
+    {
+      "node": "draft_letter",
+      "duration_ms": 0.93
+    },
+    {
+      "node": "check_letter",
+      "duration_ms": 0.78
+    }
+  ],
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "llm_calls": 6,
+    "cost_usd": 0.0
+  },
+  "provider": "fake",
+  "created_at": "2026-11-15T15:11:13.240046Z"
+}

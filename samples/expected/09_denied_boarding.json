@@ -1,0 +1,14 @@
+{
+  "status": "eligible",
+  "amount_eur": 250,
+  "review_state": "pending",
+  "rule_ids_include": [
+    "DENIED_BOARDING_INVOLUNTARY",
+    "BAND_SHORT"
+  ],
+  "risk_flags_include": [
+    "DENIED_BOARDING_UNVERIFIED"
+  ],
+  "has_letter": true,
+  "missing_fields": []
+}

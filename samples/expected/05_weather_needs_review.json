@@ -1,0 +1,13 @@
+{
+  "status": "needs_review",
+  "amount_eur": 0,
+  "review_state": "pending",
+  "rule_ids_include": [
+    "EXTRAORDINARY_CIRCUMSTANCES_CLAIMED"
+  ],
+  "risk_flags_include": [
+    "EXTRAORDINARY_CIRCUMSTANCES"
+  ],
+  "has_letter": false,
+  "missing_fields": []
+}

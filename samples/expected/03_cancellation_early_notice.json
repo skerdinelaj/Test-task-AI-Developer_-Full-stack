@@ -1,0 +1,11 @@
+{
+  "status": "not_eligible",
+  "amount_eur": 0,
+  "review_state": "not_required",
+  "rule_ids_include": [
+    "CANCELLATION_NOTICE_14D_PLUS"
+  ],
+  "risk_flags_include": [],
+  "has_letter": false,
+  "missing_fields": []
+}

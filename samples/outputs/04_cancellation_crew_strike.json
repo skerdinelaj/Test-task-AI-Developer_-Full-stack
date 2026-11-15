@@ -1,0 +1,152 @@
+{
+  "run_id": "55b50d0f7cf0",
+  "status": "eligible",
+  "review_state": "pending",
+  "needs_human_review": true,
+  "summary": "Claim for flight W62301 on 2026-10-18 (BUD→TIA).\nResult: ELIGIBLE for EUR 250.\nWhy: Covered: the flight departed from Budapest, inside the EU261 area. Distance 670 km: EUR 250 band. Airline reason 'CREW_STRIKE' does not excuse the airline: a strike by the airline's own staff is not extraordinary (CJEU C-28/20). The passenger was told only 2 day(s) ahead (less than 7).\nStatus: waiting for human review.\nNext step: A claims handler must approve the drafted letter before it is sent.",
+  "decision": {
+    "status": "eligible",
+    "eligible": true,
+    "amount_eur": 250,
+    "distance_km": 669.8,
+    "arrival_delay_minutes": null,
+    "reasons": [
+      "Covered: the flight departed from Budapest, inside the EU261 area.",
+      "Distance 670 km: EUR 250 band.",
+      "Airline reason 'CREW_STRIKE' does not excuse the airline: a strike by the airline's own staff is not extraordinary (CJEU C-28/20).",
+      "The passenger was told only 2 day(s) ahead (less than 7)."
+    ],
+    "rule_ids": [
+      "SCOPE_DEPARTS_EU",
+      "BAND_SHORT",
+      "CANCELLATION_NOTICE_UNDER_7D"
+    ]
+  },
+  "facts": {
+    "passenger_name": null,
+    "flight_number": "W62301",
+    "flight_date": "2026-10-18",
+    "departure_airport": "BUD",
+    "arrival_airport": "TIA",
+    "disruption_type": "cancellation",
+    "reported_delay_minutes": null,
+    "cancellation_notice_days": 2,
+    "reason_given_by_airline": "strike of their cabin crew"
+  },
+  "missing_fields": [],
+  "risk_flags": [
+    {
+      "code": "REROUTING_NOT_VERIFIED",
+      "severity": "info",
+      "message": "Check that no re-routing within the Art. 5(1)(c)(iii) time window was offered."
+    }
+  ],
+  "letter": {
+    "subject": "EU261 compensation claim - flight W62301 on 2026-10-18",
+    "body": "Dear Wizz Air Customer Relations,\n\nWe act on behalf of our client regarding flight W62301 on 2026-10-18 from Budapest (BUD) to Tirana (TIA), which was cancelled at short notice.\n\nUnder Regulation (EC) No 261/2004, Articles 5, 7 and the case law of the Court of Justice of the EU, the passenger is entitled to compensation of EUR 250 for this cancellation. The flight distance is 670 km.\n\nBased on the information available to us, no extraordinary circumstances apply.\n\nPlease pay EUR 250 within 14 days of this letter and send your reply to our claims team.\n\nYours faithfully,\nClaims Team"
+  },
+  "review": null,
+  "tool_calls": [
+    {
+      "tool": "lookup_flight",
+      "arguments": {
+        "flight_number": "W62301",
+        "flight_date": "2026-10-18"
+      },
+      "ok": true,
+      "duration_ms": 0.08,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "get_airline",
+      "arguments": {
+        "airline_code": "W6"
+      },
+      "ok": true,
+      "duration_ms": 0.04,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "calculate_distance",
+      "arguments": {
+        "origin_iata": "BUD",
+        "destination_iata": "TIA"
+      },
+      "ok": true,
+      "duration_ms": 0.08,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "search_regulation",
+      "arguments": {
+        "query": "cancellation notice days compensation extraordinary circumstances crew_strike",
+        "top_k": 3
+      },
+      "ok": true,
+      "duration_ms": 0.21,
+      "error": null,
+      "source": "planner"
+    }
+  ],
+  "steps": [
+    {
+      "node": "validate_input",
+      "duration_ms": 0.15
+    },
+    {
+      "node": "screen_input",
+      "duration_ms": 1.05
+    },
+    {
+      "node": "extract_facts",
+      "duration_ms": 1.6
+    },
+    {
+      "node": "plan",
+      "duration_ms": 2.66
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 0.55
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.42
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 1.18
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.42
+    },
+    {
+      "node": "verify_evidence",
+      "duration_ms": 0.33
+    },
+    {
+      "node": "apply_rules",
+      "duration_ms": 0.35
+    },
+    {
+      "node": "draft_letter",
+      "duration_ms": 0.88
+    },
+    {
+      "node": "check_letter",
+      "duration_ms": 0.66
+    }
+  ],
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "llm_calls": 6,
+    "cost_usd": 0.0
+  },
+  "provider": "fake",
+  "created_at": "2026-11-15T15:11:15.918607Z"
+}

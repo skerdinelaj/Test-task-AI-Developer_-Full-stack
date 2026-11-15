@@ -1,0 +1,13 @@
+{
+  "status": "not_eligible",
+  "amount_eur": 0,
+  "review_state": "not_required",
+  "rule_ids_include": [
+    "DELAY_BELOW_3H"
+  ],
+  "risk_flags_include": [
+    "REPORTED_DELAY_MISMATCH"
+  ],
+  "has_letter": false,
+  "missing_fields": []
+}

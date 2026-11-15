@@ -1,0 +1,15 @@
+services:
+  claim-agent:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      # Falls back to the offline model if no key is configured.
+      CLAIM_AGENT_LLM_PROVIDER: ${CLAIM_AGENT_LLM_PROVIDER:-fake}
+    volumes:
+      - runs:/app/runs   # traces + SQLite checkpoints survive restarts
+volumes:
+  runs:

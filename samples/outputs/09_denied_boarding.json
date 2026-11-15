@@ -1,0 +1,151 @@
+{
+  "run_id": "b8998c415587",
+  "status": "eligible",
+  "review_state": "pending",
+  "needs_human_review": true,
+  "summary": "Claim for flight FR8820 on 2026-10-25 (BCN→DUB).\nResult: ELIGIBLE for EUR 250.\nWhy: Covered: the flight departed from Barcelona, inside the EU261 area. Distance 1,485 km (within the EU): EUR 250 band. The passenger reports being denied boarding against their will.\nWatch out: [DENIED_BOARDING_UNVERIFIED] Flight records cannot confirm denied boarding; check the boarding pass and airline correspondence.\nStatus: waiting for human review.\nNext step: A claims handler must approve the drafted letter before it is sent.",
+  "decision": {
+    "status": "eligible",
+    "eligible": true,
+    "amount_eur": 250,
+    "distance_km": 1485.2,
+    "arrival_delay_minutes": null,
+    "reasons": [
+      "Covered: the flight departed from Barcelona, inside the EU261 area.",
+      "Distance 1,485 km (within the EU): EUR 250 band.",
+      "The passenger reports being denied boarding against their will."
+    ],
+    "rule_ids": [
+      "SCOPE_DEPARTS_EU",
+      "BAND_SHORT",
+      "DENIED_BOARDING_INVOLUNTARY"
+    ]
+  },
+  "facts": {
+    "passenger_name": null,
+    "flight_number": "FR8820",
+    "flight_date": "2026-10-25",
+    "departure_airport": "BCN",
+    "arrival_airport": "DUB",
+    "disruption_type": "denied_boarding",
+    "reported_delay_minutes": null,
+    "cancellation_notice_days": null,
+    "reason_given_by_airline": null
+  },
+  "missing_fields": [],
+  "risk_flags": [
+    {
+      "code": "DENIED_BOARDING_UNVERIFIED",
+      "severity": "warning",
+      "message": "Flight records cannot confirm denied boarding; check the boarding pass and airline correspondence."
+    }
+  ],
+  "letter": {
+    "subject": "EU261 compensation claim - flight FR8820 on 2026-10-25",
+    "body": "Dear Ryanair Customer Relations,\n\nWe act on behalf of our client regarding flight FR8820 on 2026-10-25 from Barcelona (BCN) to Dublin (DUB), which was operated, but the passenger was denied boarding against their will.\n\nUnder Regulation (EC) No 261/2004, Articles 5, 7 and the case law of the Court of Justice of the EU, the passenger is entitled to compensation of EUR 250 for this denied boarding. The flight distance is 1,485 km.\n\nBased on the information available to us, no extraordinary circumstances apply.\n\nPlease pay EUR 250 within 14 days of this letter and send your reply to our claims team.\n\nYours faithfully,\nClaims Team"
+  },
+  "review": null,
+  "tool_calls": [
+    {
+      "tool": "lookup_flight",
+      "arguments": {
+        "flight_number": "FR8820",
+        "flight_date": "2026-10-25"
+      },
+      "ok": true,
+      "duration_ms": 0.06,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "get_airline",
+      "arguments": {
+        "airline_code": "FR"
+      },
+      "ok": true,
+      "duration_ms": 0.04,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "calculate_distance",
+      "arguments": {
+        "origin_iata": "BCN",
+        "destination_iata": "DUB"
+      },
+      "ok": true,
+      "duration_ms": 0.08,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "search_regulation",
+      "arguments": {
+        "query": "denied boarding overbooked compensation",
+        "top_k": 3
+      },
+      "ok": true,
+      "duration_ms": 0.14,
+      "error": null,
+      "source": "planner"
+    }
+  ],
+  "steps": [
+    {
+      "node": "validate_input",
+      "duration_ms": 0.2
+    },
+    {
+      "node": "screen_input",
+      "duration_ms": 1.33
+    },
+    {
+      "node": "extract_facts",
+      "duration_ms": 1.89
+    },
+    {
+      "node": "plan",
+      "duration_ms": 2.28
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 0.5
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.33
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 1.61
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.26
+    },
+    {
+      "node": "verify_evidence",
+      "duration_ms": 0.23
+    },
+    {
+      "node": "apply_rules",
+      "duration_ms": 0.23
+    },
+    {
+      "node": "draft_letter",
+      "duration_ms": 0.59
+    },
+    {
+      "node": "check_letter",
+      "duration_ms": 0.42
+    }
+  ],
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "llm_calls": 6,
+    "cost_usd": 0.0
+  },
+  "provider": "fake",
+  "created_at": "2026-11-15T15:11:20.224893Z"
+}

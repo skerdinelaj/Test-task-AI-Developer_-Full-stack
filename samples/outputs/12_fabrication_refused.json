@@ -1,0 +1,42 @@
+{
+  "run_id": "877092cf0b2a",
+  "status": "rejected",
+  "review_state": "not_required",
+  "needs_human_review": false,
+  "summary": "Result: REJECTED.\nWhy: The request asks to present facts differently from what happened. We only submit claims based on the real facts; the customer can resubmit them as they are.\nWatch out: [FABRICATION_REQUEST] LLM: asks to alter or invent facts | heuristic: asks to alter or invent facts\nNext step: No action; the request was not processed.",
+  "decision": null,
+  "facts": null,
+  "missing_fields": [],
+  "risk_flags": [
+    {
+      "code": "FABRICATION_REQUEST",
+      "severity": "high",
+      "message": "LLM: asks to alter or invent facts | heuristic: asks to alter or invent facts"
+    }
+  ],
+  "letter": null,
+  "review": null,
+  "tool_calls": [],
+  "steps": [
+    {
+      "node": "validate_input",
+      "duration_ms": 0.23
+    },
+    {
+      "node": "screen_input",
+      "duration_ms": 0.96
+    },
+    {
+      "node": "finalize",
+      "duration_ms": 0.39
+    }
+  ],
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "llm_calls": 1,
+    "cost_usd": 0.0
+  },
+  "provider": "fake",
+  "created_at": "2026-11-15T15:11:23.060714Z"
+}

@@ -1,0 +1,146 @@
+{
+  "run_id": "5f6b4e8d38ee",
+  "status": "eligible",
+  "review_state": "pending",
+  "needs_human_review": true,
+  "summary": "Claim for flight W64567 on 2026-10-22 (TIA→FCO).\nResult: ELIGIBLE for EUR 250.\nWhy: Covered: the flight arrived in the EU and Wizz Air is an EU carrier. Distance 623 km: EUR 250 band. Airline reason 'TECH' does not excuse the airline: technical problems are part of normal airline operations (CJEU C-549/07). The flight arrived 3 h 30 min late (3 h or more).\nStatus: waiting for human review.\nNext step: A claims handler must approve the drafted letter before it is sent.",
+  "decision": {
+    "status": "eligible",
+    "eligible": true,
+    "amount_eur": 250,
+    "distance_km": 623.3,
+    "arrival_delay_minutes": 210,
+    "reasons": [
+      "Covered: the flight arrived in the EU and Wizz Air is an EU carrier.",
+      "Distance 623 km: EUR 250 band.",
+      "Airline reason 'TECH' does not excuse the airline: technical problems are part of normal airline operations (CJEU C-549/07).",
+      "The flight arrived 3 h 30 min late (3 h or more)."
+    ],
+    "rule_ids": [
+      "SCOPE_EU_CARRIER_INBOUND",
+      "BAND_SHORT",
+      "DELAY_AT_LEAST_3H"
+    ]
+  },
+  "facts": {
+    "passenger_name": null,
+    "flight_number": "W64567",
+    "flight_date": "2026-10-22",
+    "departure_airport": "TIA",
+    "arrival_airport": "FCO",
+    "disruption_type": "delay",
+    "reported_delay_minutes": 210,
+    "cancellation_notice_days": null,
+    "reason_given_by_airline": null
+  },
+  "missing_fields": [],
+  "risk_flags": [],
+  "letter": {
+    "subject": "EU261 compensation claim - flight W64567 on 2026-10-22",
+    "body": "Dear Wizz Air Customer Relations,\n\nWe act on behalf of our client regarding flight W64567 on 2026-10-22 from Tirana (TIA) to Rome (FCO), which was delayed, arriving 3 hours and 30 minutes late.\n\nUnder Regulation (EC) No 261/2004, Articles 5, 7 and the case law of the Court of Justice of the EU, the passenger is entitled to compensation of EUR 250 for this long delay. The flight distance is 623 km.\n\nBased on the information available to us, no extraordinary circumstances apply.\n\nPlease pay EUR 250 within 14 days of this letter and send your reply to our claims team.\n\nYours faithfully,\nClaims Team"
+  },
+  "review": null,
+  "tool_calls": [
+    {
+      "tool": "lookup_flight",
+      "arguments": {
+        "flight_number": "W64567",
+        "flight_date": "2026-10-22"
+      },
+      "ok": true,
+      "duration_ms": 0.04,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "get_airline",
+      "arguments": {
+        "airline_code": "W6"
+      },
+      "ok": true,
+      "duration_ms": 0.03,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "calculate_distance",
+      "arguments": {
+        "origin_iata": "TIA",
+        "destination_iata": "FCO"
+      },
+      "ok": true,
+      "duration_ms": 0.05,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "search_regulation",
+      "arguments": {
+        "query": "delay three hours arrival compensation extraordinary circumstances tech",
+        "top_k": 3
+      },
+      "ok": true,
+      "duration_ms": 0.11,
+      "error": null,
+      "source": "planner"
+    }
+  ],
+  "steps": [
+    {
+      "node": "validate_input",
+      "duration_ms": 0.12
+    },
+    {
+      "node": "screen_input",
+      "duration_ms": 0.93
+    },
+    {
+      "node": "extract_facts",
+      "duration_ms": 2.19
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.96
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 0.46
+    },
+    {
+      "node": "plan",
+      "duration_ms": 0.82
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 0.68
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.0
+    },
+    {
+      "node": "verify_evidence",
+      "duration_ms": 0.32
+    },
+    {
+      "node": "apply_rules",
+      "duration_ms": 0.18
+    },
+    {
+      "node": "draft_letter",
+      "duration_ms": 0.5
+    },
+    {
+      "node": "check_letter",
+      "duration_ms": 0.29
+    }
+  ],
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "llm_calls": 6,
+    "cost_usd": 0.0
+  },
+  "provider": "fake",
+  "created_at": "2026-11-15T15:11:18.606165Z"
+}

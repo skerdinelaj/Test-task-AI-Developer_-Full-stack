@@ -1,0 +1,9 @@
+{
+  "status": "out_of_scope",
+  "amount_eur": 0,
+  "review_state": "not_required",
+  "rule_ids_include": [],
+  "risk_flags_include": [],
+  "has_letter": false,
+  "missing_fields": []
+}

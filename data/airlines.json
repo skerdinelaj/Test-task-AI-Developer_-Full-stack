@@ -1,0 +1,19 @@
+[
+  {"iata": "FR", "name": "Ryanair", "country": "IE", "eu_carrier": true},
+  {"iata": "W6", "name": "Wizz Air", "country": "HU", "eu_carrier": true},
+  {"iata": "LH", "name": "Lufthansa", "country": "DE", "eu_carrier": true},
+  {"iata": "AF", "name": "Air France", "country": "FR", "eu_carrier": true},
+  {"iata": "KL", "name": "KLM", "country": "NL", "eu_carrier": true},
+  {"iata": "AZ", "name": "ITA Airways", "country": "IT", "eu_carrier": true},
+  {"iata": "IB", "name": "Iberia", "country": "ES", "eu_carrier": true},
+  {"iata": "TP", "name": "TAP Air Portugal", "country": "PT", "eu_carrier": true},
+  {"iata": "OS", "name": "Austrian Airlines", "country": "AT", "eu_carrier": true},
+  {"iata": "A3", "name": "Aegean Airlines", "country": "GR", "eu_carrier": true},
+  {"iata": "LO", "name": "LOT Polish Airlines", "country": "PL", "eu_carrier": true},
+  {"iata": "SK", "name": "SAS", "country": "SE", "eu_carrier": true},
+  {"iata": "LX", "name": "Swiss International Air Lines", "country": "CH", "eu_carrier": true},
+  {"iata": "BA", "name": "British Airways", "country": "GB", "eu_carrier": false},
+  {"iata": "DL", "name": "Delta Air Lines", "country": "US", "eu_carrier": false},
+  {"iata": "TK", "name": "Turkish Airlines", "country": "TR", "eu_carrier": false},
+  {"iata": "EK", "name": "Emirates", "country": "AE", "eu_carrier": false}
+]

@@ -1,0 +1,12 @@
+{
+  "status": "eligible",
+  "amount_eur": 250,
+  "review_state": "pending",
+  "rule_ids_include": [
+    "SCOPE_EU_CARRIER_INBOUND",
+    "BAND_SHORT"
+  ],
+  "risk_flags_include": [],
+  "has_letter": true,
+  "missing_fields": []
+}

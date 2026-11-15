@@ -1,0 +1,12 @@
+{
+  "status": "eligible",
+  "amount_eur": 300,
+  "review_state": "pending",
+  "rule_ids_include": [
+    "BAND_LONG",
+    "LONG_HAUL_REDUCTION_50"
+  ],
+  "risk_flags_include": [],
+  "has_letter": true,
+  "missing_fields": []
+}

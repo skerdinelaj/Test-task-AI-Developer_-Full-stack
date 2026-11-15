@@ -1,0 +1,13 @@
+{
+  "status": "eligible",
+  "amount_eur": 400,
+  "review_state": "pending",
+  "rule_ids_include": [
+    "DELAY_AT_LEAST_3H"
+  ],
+  "risk_flags_include": [
+    "PROMPT_INJECTION_SUSPECTED"
+  ],
+  "has_letter": true,
+  "missing_fields": []
+}

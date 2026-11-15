@@ -1,0 +1,149 @@
+{
+  "run_id": "72aa7303920e",
+  "status": "not_eligible",
+  "review_state": "not_required",
+  "needs_human_review": false,
+  "summary": "Claim for flight AZ612 on 2026-10-10 (FCO→CDG).\nResult: NOT ELIGIBLE.\nWhy: Covered: the flight departed from Rome, inside the EU261 area. Distance 1,101 km (within the EU): EUR 250 band. Airline reason 'TECH' does not excuse the airline: technical problems are part of normal airline operations (CJEU C-549/07). The flight arrived 2 h 05 min late; compensation starts at 3 h 00 min.\nWatch out: [REPORTED_DELAY_MISMATCH] Customer reported 4 h 00 min, record shows 2 h 05 min. Decision uses the record.\nNext step: Tell the customer why no compensation is due.",
+  "decision": {
+    "status": "not_eligible",
+    "eligible": false,
+    "amount_eur": 0,
+    "distance_km": 1100.6,
+    "arrival_delay_minutes": 125,
+    "reasons": [
+      "Covered: the flight departed from Rome, inside the EU261 area.",
+      "Distance 1,101 km (within the EU): EUR 250 band.",
+      "Airline reason 'TECH' does not excuse the airline: technical problems are part of normal airline operations (CJEU C-549/07).",
+      "The flight arrived 2 h 05 min late; compensation starts at 3 h 00 min."
+    ],
+    "rule_ids": [
+      "SCOPE_DEPARTS_EU",
+      "BAND_SHORT",
+      "DELAY_BELOW_3H"
+    ]
+  },
+  "facts": {
+    "passenger_name": null,
+    "flight_number": "AZ612",
+    "flight_date": "2026-10-10",
+    "departure_airport": "FCO",
+    "arrival_airport": "CDG",
+    "disruption_type": "delay",
+    "reported_delay_minutes": 240,
+    "cancellation_notice_days": null,
+    "reason_given_by_airline": null
+  },
+  "missing_fields": [],
+  "risk_flags": [
+    {
+      "code": "REPORTED_DELAY_MISMATCH",
+      "severity": "warning",
+      "message": "Customer reported 4 h 00 min, record shows 2 h 05 min. Decision uses the record."
+    }
+  ],
+  "letter": null,
+  "review": null,
+  "tool_calls": [
+    {
+      "tool": "lookup_flight",
+      "arguments": {
+        "flight_number": "AZ612",
+        "flight_date": "2026-10-10"
+      },
+      "ok": true,
+      "duration_ms": 0.06,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "get_airline",
+      "arguments": {
+        "airline_code": "AZ"
+      },
+      "ok": true,
+      "duration_ms": 0.04,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "calculate_distance",
+      "arguments": {
+        "origin_iata": "FCO",
+        "destination_iata": "CDG"
+      },
+      "ok": true,
+      "duration_ms": 0.09,
+      "error": null,
+      "source": "planner"
+    },
+    {
+      "tool": "search_regulation",
+      "arguments": {
+        "query": "delay three hours arrival compensation extraordinary circumstances tech",
+        "top_k": 3
+      },
+      "ok": true,
+      "duration_ms": 0.21,
+      "error": null,
+      "source": "planner"
+    }
+  ],
+  "steps": [
+    {
+      "node": "validate_input",
+      "duration_ms": 0.3
+    },
+    {
+      "node": "screen_input",
+      "duration_ms": 0.65
+    },
+    {
+      "node": "extract_facts",
+      "duration_ms": 3.22
+    },
+    {
+      "node": "plan",
+      "duration_ms": 2.68
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 0.37
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.24
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 1.76
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.55
+    },
+    {
+      "node": "verify_evidence",
+      "duration_ms": 0.26
+    },
+    {
+      "node": "apply_rules",
+      "duration_ms": 0.33
+    },
+    {
+      "node": "review_gate",
+      "duration_ms": 0.2
+    },
+    {
+      "node": "finalize",
+      "duration_ms": 0.29
+    }
+  ],
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "llm_calls": 5,
+    "cost_usd": 0.0
+  },
+  "provider": "fake",
+  "created_at": "2026-11-15T15:11:14.134809Z"
+}

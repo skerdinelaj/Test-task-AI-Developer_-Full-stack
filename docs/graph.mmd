@@ -1,0 +1,41 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	validate_input(validate_input)
+	screen_input(screen_input)
+	extract_facts(extract_facts)
+	plan(plan)
+	run_tools(run_tools)
+	verify_evidence(verify_evidence)
+	apply_rules(apply_rules)
+	draft_letter(draft_letter)
+	check_letter(check_letter)
+	review_gate(review_gate)
+	finalize(finalize)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> validate_input;
+	apply_rules -.-> draft_letter;
+	apply_rules -.-> review_gate;
+	check_letter -.-> draft_letter;
+	check_letter -.-> review_gate;
+	draft_letter --> check_letter;
+	extract_facts -.-> finalize;
+	extract_facts -.-> plan;
+	plan -.-> run_tools;
+	plan -.-> verify_evidence;
+	review_gate --> finalize;
+	run_tools --> plan;
+	screen_input -.-> extract_facts;
+	screen_input -.-> finalize;
+	validate_input -.-> finalize;
+	validate_input -.-> screen_input;
+	verify_evidence --> apply_rules;
+	finalize --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
+

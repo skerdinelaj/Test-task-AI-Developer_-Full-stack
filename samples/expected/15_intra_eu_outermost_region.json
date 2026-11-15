@@ -1,0 +1,12 @@
+{
+  "status": "eligible",
+  "amount_eur": 400,
+  "review_state": "pending",
+  "rule_ids_include": [
+    "SCOPE_DEPARTS_EU",
+    "BAND_MEDIUM"
+  ],
+  "risk_flags_include": [],
+  "has_letter": true,
+  "missing_fields": []
+}

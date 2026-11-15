@@ -1,0 +1,115 @@
+{
+  "run_id": "a34f479ea997",
+  "status": "needs_review",
+  "review_state": "pending",
+  "needs_human_review": true,
+  "summary": "Claim for flight FR9999 on 2026-10-01 (DUB→MAD).\nResult: NEEDS REVIEW.\nWhy: The flight could not be found in the flight records, so the facts cannot be verified. A handler must check it manually.\nWatch out: [FLIGHT_NOT_VERIFIED] No flight record matches the flight number and date.\nStatus: waiting for human review.\nNext step: A claims handler must decide this case manually.",
+  "decision": {
+    "status": "needs_review",
+    "eligible": null,
+    "amount_eur": 0,
+    "distance_km": null,
+    "arrival_delay_minutes": null,
+    "reasons": [
+      "The flight could not be found in the flight records, so the facts cannot be verified. A handler must check it manually."
+    ],
+    "rule_ids": [
+      "FLIGHT_NOT_FOUND"
+    ]
+  },
+  "facts": {
+    "passenger_name": null,
+    "flight_number": "FR9999",
+    "flight_date": "2026-10-01",
+    "departure_airport": "DUB",
+    "arrival_airport": "MAD",
+    "disruption_type": "delay",
+    "reported_delay_minutes": 300,
+    "cancellation_notice_days": null,
+    "reason_given_by_airline": null
+  },
+  "missing_fields": [],
+  "risk_flags": [
+    {
+      "code": "FLIGHT_NOT_VERIFIED",
+      "severity": "high",
+      "message": "No flight record matches the flight number and date."
+    }
+  ],
+  "letter": null,
+  "review": null,
+  "tool_calls": [
+    {
+      "tool": "lookup_flight",
+      "arguments": {
+        "flight_number": "FR9999",
+        "flight_date": "2026-10-01"
+      },
+      "ok": false,
+      "duration_ms": 0.04,
+      "error": "No flight FR9999 on 2026-10-01 in the records.",
+      "source": "planner"
+    },
+    {
+      "tool": "search_regulation",
+      "arguments": {
+        "query": "flight verification scope",
+        "top_k": 2
+      },
+      "ok": true,
+      "duration_ms": 0.12,
+      "error": null,
+      "source": "planner"
+    }
+  ],
+  "steps": [
+    {
+      "node": "validate_input",
+      "duration_ms": 0.24
+    },
+    {
+      "node": "screen_input",
+      "duration_ms": 0.6
+    },
+    {
+      "node": "extract_facts",
+      "duration_ms": 1.8
+    },
+    {
+      "node": "plan",
+      "duration_ms": 1.82
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 0.35
+    },
+    {
+      "node": "plan",
+      "duration_ms": 0.97
+    },
+    {
+      "node": "run_tools",
+      "duration_ms": 0.38
+    },
+    {
+      "node": "plan",
+      "duration_ms": 0.84
+    },
+    {
+      "node": "verify_evidence",
+      "duration_ms": 0.12
+    },
+    {
+      "node": "apply_rules",
+      "duration_ms": 0.15
+    }
+  ],
+  "usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "llm_calls": 5,
+    "cost_usd": 0.0
+  },
+  "provider": "fake",
+  "created_at": "2026-11-15T15:11:24.834795Z"
+}

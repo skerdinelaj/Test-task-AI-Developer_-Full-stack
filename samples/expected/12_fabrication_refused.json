@@ -1,0 +1,11 @@
+{
+  "status": "rejected",
+  "amount_eur": 0,
+  "review_state": "not_required",
+  "rule_ids_include": [],
+  "risk_flags_include": [
+    "FABRICATION_REQUEST"
+  ],
+  "has_letter": false,
+  "missing_fields": []
+}

@@ -1,0 +1,14 @@
+{
+  "_note": "Thresholds for Regulation (EC) No 261/2004 as applied by the CJEU. Kept in config, not code, because an EU261 reform has been under negotiation: check the rules in force before changing these values.",
+  "eu261_countries": ["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","NO","CH"],
+  "delay_threshold_minutes": 180,
+  "long_haul_reduction_max_delay_minutes": 239,
+  "long_haul_reduction_factor": 0.5,
+  "cancellation_full_notice_days": 14,
+  "cancellation_partial_notice_days": 7,
+  "distance_bands_km": {"short_max": 1500, "medium_max": 3500},
+  "amounts_eur": {"short": 250, "medium": 400, "long": 600},
+  "extraordinary_reason_codes": ["WX", "ATC", "SEC", "POLITICAL", "BIRDSTRIKE", "MEDICAL"],
+  "not_extraordinary_reason_codes": ["TECH", "CREW_STRIKE", "LATE_INBOUND", "SCHEDULE_CHANGE", "OVERBOOKING"],
+  "reported_vs_record_tolerance_minutes": 60
+}
