@@ -1,3 +1,5 @@
+name: eu261-claim-agent
+
 services:
   claim-agent:
     build: .
